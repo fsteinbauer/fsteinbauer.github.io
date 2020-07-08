@@ -1,0 +1,11 @@
+div[role=main] {
+	max-width: 620px;
+	margin-top: 50px;
+}
+
+pre code {
+	background: rgba(0,0,0,0.03);
+    padding: 5px 15px;
+    display: block;
+}
+
