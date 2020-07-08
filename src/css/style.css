@@ -1,0 +1,24 @@
+.container {
+	max-width: 620px;
+	margin-top: 50px;
+}
+
+pre code {
+	background: rgba(0,0,0,0.03);
+    padding: 5px 15px;
+    display: block;
+}
+
+header {
+	color: #222;
+}
+
+/*.btn-primary {
+	background: #117a8b;
+	border-color: #117a8b;
+}*/
+
+p.lead {
+	margin-top: 20px;
+	margin-bottom: 35px;
+}

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/e6225de67f.js" crossorigin="anonymous"></script>
+
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
+
+    <title>Project Cirrus Configuration Tool</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">☁️ Project Cirus</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/link/to/repo"><i class="fa fa-github fa-lg"></i> Github</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><i class="fa fa-tools fa-lg"></i> Configuration Tool <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main role="main" class="container">
+
+    <header class="row">
+      <div class="col-2">
+        <i class="fa fa-tools" style="font-size: 4.5em;"></i>
+      </div>
+      <div class="col">
+        <h3 style="text-transform: uppercase; font-weight: bold">Project Cirus</h3>
+        <h2>Configuration Tool</h2>
+      </div>
+    </header>
+
+    <p class="lead">We have prepared a little form, which helps you define the basic settings to get quickly started with your instance of <b>PROJECT CIRUS</b>. For a full guide to all configurable parameters and further instructions, please check our <a href="https://github.com/florian/cloud">documentation</a>. Happy clouding! 🌥️</p>
+
+    <div id="result" style="display: none">
+
+      <h3>Success!</h3>
+
+      <p>Almost done. Please make sure you are having Docker installed, and follow the proceeding steps.</p>
+
+      <h5>1. Get the sources</h5>
+      <pre><code>$ mkdir /etc/dockercloud <br/>$ cd /etc/dockercloud<br/>$ wget -O project-cirrus.zip {{zipPath}}<br/>$ unzip project-cirrus.zip</code></pre>
+      <p>Please review your downloaded and extracted files.</p>
+
+      <h5>2. Create synapse keys and folder structure</h5>
+      <pre><code>$./synapse/setup.sh</code></pre>
+      <p>This will run the <code>generate</code>-command inside the synapse container.</p>
+
+      <h5>3. Download and start the containers</h5>
+      <pre><code>$ docker-compose up -d</code></pre>
+
+      <h5>4. Finish the Nextcloud installation</h5>
+      <pre><code>$ docker-compose exec --user www-data nextcloud /install/install.sh</code></pre>
+
+    </div>
+
+    <form id="configurationForm">
+
+      <div class="form-group">
+        <label for="domain">Server Domain</label>
+        <input type="text" class="form-control" name="domain" aria-describedby="domainHelp" placeholder="example.com" required="required">
+        <small id="domainHelp" class="form-text text-muted">The domain where nextcloud can be reached.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="letsencrypt_email">Let's Encrypt Email</label>
+        <input type="email" class="form-control" name="letsencrypt_email" aria-describedby="letsencrypt_emailHelp" placeholder="admin@example.com" required="required">
+        <small id="letsencrypt_emailHelp" class="form-text text-muted">Email address for important account notifications from <i>Let's encrypt</i>.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="nextcloud_db_root_password">Nextcloud Database Root Password</label>
+        <input type="text" class="form-control password" name="nextcloud_db_root_password" aria-describedby="nextcloud_db_root_passwordHelp">
+        <small id="nextcloud_db_root_passwordHelp" class="form-text text-muted">The MySQL root password allows the root user to have full access to the MySQL database. </small>
+      </div>
+
+      <div class="form-group">
+        <label for="nextcloud_db_password">Nextcloud Database Password</label>
+        <input type="text" class="form-control password" name="nextcloud_db_password" aria-describedby="nextcloud_db_passwordHelp">
+        <small id="nextcloud_db_passwordHelp" class="form-text text-muted">This password is used to perform internal mysql Lookups. A secure password was automatically generated. Change it, if you wish.</small>
+      </div>
+
+
+      <fieldset id="matrixSettings">
+
+        <legend>Matrix Synapse Settings</legend>
+
+        <div class="form-group">
+          <label for="matrix_server_name">Server Name</label>
+          <input type="text" class="form-control" name="matrix_server_name" aria-describedby="matrix-server_nameHelp" placeholder="synapse.example.com" required="required">
+          <small id="matrix-server_nameHelp" class="form-text text-muted">This name used by remote servers to connect to this server,The domain where nextcloud can be reached.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="matrix_enable_metrics">Enable Metrics</label>
+          <select class="form-control" name="matrix_enable_metrics" aria-describedby="matrix_enable_metricsHelp" required="required">
+            <option selected="selected" value="True">Yes</option>
+            <option value="False">No</option>
+          </select>
+          <small id="matrix_enable_metricsHelp" class="form-text text-muted">Enable collection and rendering of performance metrics</small>
+        </div>
+
+        <div class="form-group">
+          <label for="matrix_report_stats">Report Stats Metrics</label>
+          <select class="form-control" name="matrix_report_stats" aria-describedby="matrix_report_statsHelp" required="required">
+            <option selected="selected" value="True">Yes</option>
+            <option value="False">No</option>
+          </select>
+          <small id="matrix_report_statsHelp" class="form-text text-muted">Whether or not to report anonymized homeserver usage statistics.</small>
+        </div>
+
+      </fieldset>
+
+
+
+      <fieldset id="emailSettings">
+
+        <legend>Mailu Settings</legend>
+
+        <div class="form-group">
+          <label for="mailu_secret_key">Mailu Secret Key</label>
+          <input type="text" class="form-control password" name="mailu_secret_key" aria-describedby="mailu_secret_keyHelp" data-length="16" data-alphanumeric="true">
+          <small id="mailu_secret_keyHelp" class="form-text text-muted">The secret key is set to a 16 bytes randomly generated value. It is intended to secure authentication cookies among other critical uses.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="mailu_admin_password">Mailu Admin Password</label>
+          <input type="text" class="form-control password" name="mailu_admin_password" aria-describedby="mailu_admin_passwordHelp">
+          <small id="mailu_admin_passwordHelp" class="form-text text-muted">For administrative tasks, an admin user account will be needed in Mailu. An admin account with your domain will automatically created (admin@example.com). Please state here the password to this account.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="mailu_enable_clamav">Enable ClamAV</label>
+          <select class="form-control" name="mailu_enable_clamav" aria-describedby="mailu_enable_clamavHelp" required="required">
+            <option selected="selected" value="clamav">Yes</option>
+            <option value="none">No</option>
+          </select>
+          <small id="mailu_enable_clamavHelp" class="form-text text-muted">Clam AntiVirus (ClamAV) is a free software, cross-platform and open-source antivirus software toolkit able to detect many types of malicious software, including viruses. If Mailu is being run on a host with limited resources, it can be disabled to increase performance.</small>
+        </div>
+
+      </fieldset>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" id="btnSubmit">Generate</button>
+        <button type="submit" class="btn btn-primary" id="btnLoading" disabled style="display: none">
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button>
+
+      </div>
+
+    </form>
+
+</main><!-- /.container -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- Load React. -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+  </body>
+</html>
